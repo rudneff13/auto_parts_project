@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Main{% endblock %} - Products for trucks</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to our website!</h1>
+    </header>
+    <nav>
+        <a href="{% url 'truck_parts_app:index' %}">Main</a>
+        <a href="{% url 'truck_parts_app:products_list' %}">Our products</a>
+    </nav>
+
+    <section>
+    {% block content %}
+    {% endblock %}
+    </section>
+</body>
+</html>

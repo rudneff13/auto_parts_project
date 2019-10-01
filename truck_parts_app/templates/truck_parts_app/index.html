@@ -1,0 +1,9 @@
+{% extends "truck_parts_app/basic.html" %}
+
+{% block content %}
+    <h3>Check <a href="{% url 'truck_parts_app:products_list' %}">Our products</a> list if you are
+        looking for a spare parts for your truck!</h3>
+    {% for truck in list_of_trucks %}
+    <li><p>{{ truck.name }}</p></li>
+    {% endfor %}
+{% endblock %}
