@@ -6,11 +6,11 @@
 </head>
 <body>
     <header>
-        <h1>Welcome to our website!</h1>
+        <h1>{% block header %} Welcome to our website! {% endblock %}</h1>
     </header>
     <nav>
         <a href="{% url 'truck_parts_app:index' %}">Main</a>
-        <a href="{% url 'truck_parts_app:products_list' %}">Our products</a>
+        <a href="{% url 'truck_parts_app:products-list' %}">Our products</a>
     </nav>
 
     <section>
