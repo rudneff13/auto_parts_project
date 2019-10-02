@@ -20,8 +20,5 @@ class ProductsListView(generic.ListView):
 
 
 class ProductDetailView(generic.DetailView):
+    model = Product
     template_name = 'truck_parts_app/detail.html'
-    context_object_name = 'detail'
-
-    def get_queryset(self):
-        return Product.objects.all()

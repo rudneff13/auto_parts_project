@@ -1,12 +1,9 @@
 {% extends "truck_parts_app/basic.html" %}
 
-<header>
-    <h1>Product page</h1>
-</header>
-{#{% block content %}#}
-{#    <h3>Let us help you find something special for you.</h3>#}
-{#    {% for product in list_of_products %}#}
-{#        <li><a href="{% url 'truck_parts_app:products_list' %}">{{ product.name }}</a>#}
-{#        </li>#}
-{#    {% endfor %}#}
-{#{% endblock %}#}
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block header %} {{ product.name }} {% endblock %}
+
+{% block content %}
+    <p> {{ product.description }}</p>
+{% endblock %}

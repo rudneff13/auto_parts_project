@@ -8,6 +8,7 @@ class ProductTruckInLine(admin.TabularInline):
     extra = 1
 
 
+@admin.register(Truck)
 class TruckAdmin(admin.ModelAdmin):
     list_display = ('name', 'get_products')
     inlines = (ProductTruckInLine,)
@@ -15,13 +16,9 @@ class TruckAdmin(admin.ModelAdmin):
     search_fields = ('name', 'products__name')
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'get_trucks')
     inlines = (ProductTruckInLine,)
     list_filter = ('trucks',)
     search_fields = ('name', 'description', 'trucks__name',)
-
-
-admin.site.register(Truck, TruckAdmin)
-admin.site.register(Product, ProductAdmin)
-
