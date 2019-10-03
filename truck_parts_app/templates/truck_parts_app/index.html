@@ -1,9 +1,14 @@
 {% extends "truck_parts_app/basic.html" %}
 
 {% block content %}
-    <h3>Check <a href="{% url 'truck_parts_app:products-list' %}">Our products</a> list if you are
-        looking for a spare parts for your truck!</h3>
+    <h4>Check <a href="{% url 'truck_parts_app:products-list' %}">Our products</a> list if you are
+        looking for a spare parts for your truck!</h4>
+    { form
+{% endblock %}
+
+{% block left_side_bar %}
     {% for truck in list_of_trucks %}
-    <li><p>{{ truck.name }}</p></li>
+        <a class="nav-link" href="#">{{ truck.name }}</a>
     {% endfor %}
+
 {% endblock %}

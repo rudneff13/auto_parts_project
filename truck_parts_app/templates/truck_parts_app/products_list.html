@@ -5,8 +5,57 @@
 {% block header %} Products list page {% endblock %}
 
 {% block content %}
-    <h3>Let us help you find something special for you.</h3>
-    {% for product in list_of_products %}
-        <li><a href="{% url 'truck_parts_app:detail' product.id %}">{{ product.name }}</a></li>
-    {% endfor %}
+    <div>
+        <h4>Let us help you find something special for you.</h4>
+    </div>
+
+    <div class="container">
+        <table class="table table-bordered table-sm">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Truck</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in object_list.product %}
+                <tr>
+                    <td><a href="{% url 'truck_parts_app:detail' product.id %}">{{ product.name }}</a></td>
+                    <td><a>{{ product.description }}</a></td>
+                    <td><a>{{ product.get_trucks }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
+
+{% block left_side_bar %}
+
+    {% for truck in object_list.truck %}
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id={{ truck.pk }}>
+            <label class="form-check-label" for={{ truck.pk }}>{{ truck.name }}</label>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+
+
+
+{#                <td><a id="text" style="display:none">{{ product.get_trucks }}</a></td>#}
+{##}
+{##}
+{#            <script>#}
+{#                function myFunction() {#}
+{#                    var checkBox = document.getElementById({{ truck.pk }});#}
+{#                    var text = document.getElementById("text");#}
+{#                    if (checkBox.checked == true) {#}
+{#                        text.style.display = "block";#}
+{#                    } else {#}
+{#                        text.style.display = "none";#}
+{#                    }#}
+{#                }#}
+{#            </script>#}
