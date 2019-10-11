@@ -19,7 +19,8 @@
             </tr>
             </thead>
             <tbody>
-            {% for product in object_list.product %}
+
+            {% for product in products %}
                 <tr>
                     <td><a href="{% url 'truck_parts_app:detail' product.id %}">{{ product.name }}</a></td>
                     <td><a>{{ product.description }}</a></td>
@@ -29,33 +30,24 @@
             </tbody>
         </table>
     </div>
+
+
 {% endblock %}
 
 {% block left_side_bar %}
 
-    {% for truck in object_list.truck %}
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id={{ truck.pk }}>
-            <label class="form-check-label" for={{ truck.pk }}>{{ truck.name }}</label>
-        </div>
-    {% endfor %}
+    {#    {% for truck in object_list.truck %}#}
+    {#        <div class="form-group form-check">#}
+    {#                <input type="checkbox" class="form-check-input" id={{ truck.pk }}>#}
+    {#            <label class="form-check-label" for={{ truck.pk }}>{{ truck.name }}</label>#}
+    {#        </div>#}
+    {#    {% endfor %}#}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Filter">
+    </form>
+
 
 {% endblock %}
-
-
-
-
-{#                <td><a id="text" style="display:none">{{ product.get_trucks }}</a></td>#}
-{##}
-{##}
-{#            <script>#}
-{#                function myFunction() {#}
-{#                    var checkBox = document.getElementById({{ truck.pk }});#}
-{#                    var text = document.getElementById("text");#}
-{#                    if (checkBox.checked == true) {#}
-{#                        text.style.display = "block";#}
-{#                    } else {#}
-{#                        text.style.display = "none";#}
-{#                    }#}
-{#                }#}
-{#            </script>#}
