@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Truck(models.Model):
@@ -20,7 +21,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='Product')
     description = models.CharField(max_length=250, blank=True, verbose_name='Description')
     trucks = models.ManyToManyField(Truck, through='ProductTruck', through_fields=('product', 'truck'),
-                                    symmetrical=True, related_name='products')
+                                    symmetrical=True, related_name='products',)
 
     class Meta:
         verbose_name = 'Product'
@@ -32,6 +33,9 @@ class Product(models.Model):
 
     def get_trucks(self):
         return ', '.join([truck.name for truck in self.trucks.all()][:50])
+
+    # def get_absolute_url(self):
+    #     return reverse('product-detail', kwargs={'pk': self.pk})
 
 
 class ProductTruck(models.Model):

@@ -1,0 +1,12 @@
+{% extends "truck_parts_app/basic.html" %}
+
+{#{% load crispy_forms_tags %}#}
+
+{% block header %} Create a new truck: {% endblock %}
+
+{% block content %}
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create"/>
+    </form>
+{% endblock %}

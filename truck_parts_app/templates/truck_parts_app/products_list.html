@@ -1,4 +1,6 @@
 {% extends "truck_parts_app/basic.html" %}
+{% load crispy_forms_tags %}
+
 
 {% block title %} Products list {% endblock %}
 
@@ -7,9 +9,11 @@
 {% block content %}
     <div>
         <h4>Let us help you find something special for you.</h4>
+        <a class="btn btn-secondary btn-sm" href="{% url 'truck_parts_app:product-create-form' %}"
+           role="button" style="float: right;">Add new product</a>
     </div>
 
-    <div class="container">
+    <div class="container pt-3">
         <table class="table table-bordered table-sm">
             <thead>
             <tr>
@@ -22,9 +26,13 @@
 
             {% for product in products %}
                 <tr>
-                    <td><a href="{% url 'truck_parts_app:detail' product.id %}">{{ product.name }}</a></td>
+                    <td><a href="{% url 'truck_parts_app:product-detail' product.id %}">{{ product.name }}</a></td>
                     <td><a>{{ product.description }}</a></td>
                     <td><a>{{ product.get_trucks }}</a></td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'truck_parts_app:product-update-form' product.id %}"
+                           role="button" style="float: right;">Update</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -35,19 +43,5 @@
 {% endblock %}
 
 {% block left_side_bar %}
-
-    {#    {% for truck in object_list.truck %}#}
-    {#        <div class="form-group form-check">#}
-    {#                <input type="checkbox" class="form-check-input" id={{ truck.pk }}>#}
-    {#            <label class="form-check-label" for={{ truck.pk }}>{{ truck.name }}</label>#}
-    {#        </div>#}
-    {#    {% endfor %}#}
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Filter">
-    </form>
-
-
+    {% crispy form %}
 {% endblock %}

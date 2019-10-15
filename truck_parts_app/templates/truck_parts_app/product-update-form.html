@@ -1,0 +1,9 @@
+{% extends "truck_parts_app/basic.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block header %} Change your product info: {% endblock %}
+
+{% block content %}
+    {% crispy form %}
+{% endblock %}
