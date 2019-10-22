@@ -1,0 +1,26 @@
+{% extends "truck_parts_app/basic.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block header %} Are you sure you want delete {{ product.name }}? {% endblock %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {#        {% crispy form %}#}
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-primary btn-md" style="float: start;">Confirm</button>
+
+        <a class="btn btn-primary btn-md" href="{% url 'truck_parts_app:product-detail' product.id %}"
+           role="button" style="float: right;">Cancel</a>
+        {#        <input type="submit" value="Confirm"/>#}
+        {#        <input href="" value="Cancel"/>#}
+        {#        <button><a href="{% url 'truck_parts_app:product-detail' product.id %}"></a></button>#}
+    </form>
+{% endblock %}
+
+{% block left_side_bar %}
+    {#        {% crispy form %}#}
+{% endblock %}

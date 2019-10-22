@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'truck_parts_app.apps.TruckPartsAppConfig',
     'crispy_forms',
+    'rest_framework',
+    'frontend',
 ]
 
 MIDDLEWARE = [

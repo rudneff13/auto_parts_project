@@ -40,3 +40,7 @@ class ProductForm(forms.ModelForm):
         self.fields['trucks'].widget = forms.widgets.CheckboxSelectMultiple()
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Save product'))
+
+
+# class SearchForm(forms.Form):
+#     keyword = forms.CharField(required=False, max_length=50)

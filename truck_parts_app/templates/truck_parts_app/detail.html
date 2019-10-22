@@ -1,11 +1,18 @@
 {% extends "truck_parts_app/basic.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %} {{ product.name }} {% endblock %}
 
 {% block header %} {{ product.name }} {% endblock %}
 
 {% block content %}
+    {{ form|crispy }}
     <p> {{ product.description }}</p>
+    <a class="btn btn-secondary btn-md" href="{% url 'truck_parts_app:product-update-form' product.id %}"
+       role="button" style="float: right;">Update</a>
+    <a class="btn btn-secondary btn-md" href="{% url 'truck_parts_app:product-delete-form' product.id %}"
+       role="button" style="float: right;">Delete</a>
 {% endblock %}
 
 {#{% block left_side_bar %}#}

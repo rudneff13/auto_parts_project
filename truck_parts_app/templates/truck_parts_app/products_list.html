@@ -9,8 +9,8 @@
 {% block content %}
     <div>
         <h4>Let us help you find something special for you.</h4>
-        <a class="btn btn-secondary btn-sm" href="{% url 'truck_parts_app:product-create-form' %}"
-           role="button" style="float: right;">Add new product</a>
+        <a class="btn btn-secondary btn-sm mb-2 mr-3" href="{% url 'truck_parts_app:product-create-form' %}"
+           role="button" style="float: right;">Add product</a>
     </div>
 
     <div class="container pt-3">
@@ -20,6 +20,7 @@
                 <th>Product</th>
                 <th>Description</th>
                 <th>Truck</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +33,8 @@
                     <td>
                         <a class="btn btn-secondary btn-sm" href="{% url 'truck_parts_app:product-update-form' product.id %}"
                            role="button" style="float: right;">Update</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'truck_parts_app:product-delete-form' product.id %}"
+                           role="button" style="float: right;">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
