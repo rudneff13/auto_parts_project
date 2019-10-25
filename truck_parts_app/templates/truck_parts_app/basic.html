@@ -8,59 +8,54 @@
 </head>
 
 <body>
-
 <div class="card" id="global div">
 
-        <nav class="navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="{% url 'truck_parts_app:index' %}">Main</a>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'truck_parts_app:products-list' %}">Our products</a>
-                </li>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="{% url 'truck_parts_app:index' %}">Main</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'truck_parts_app:products-list' %}">Our products</a>
+            </li>
+        </ul>
 
-            </ul>
-            <form method="GET" class="form-inline">
-                <input type="text" name='q' value='{{ request.GET.q }}' class="form-control mr-sm-2">
-                <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">
-            </form>
+        <form method="GET" class="form-inline">
+            <input type="text" name='q' value='{{ request.GET.q }}' class="form-control mr-sm-2">
+            <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">
+        </form>
+    </nav>
 
-{#            <form method='GET'>#}
-{#  <input type='text' name='q' value='{{ request.GET.q }}'>#}
-{#  <input class="button" type='submit' value="Search Profile">#}
-{#</form>#}
-        </nav>
+    <div class="container-fluid">
+        <div class="row">
 
-        <div class="container-fluid">
-            <div class="row">
+            <div class="card text-center col-2">
+                <div class="card-body">
+                    <h5 class="card-title">Trucks:</h5>
 
-                <div class="card text-center col-2">
-                    <div class="card-body">
-                        <h5 class="card-title">Trucks:</h5>
-                        <p class="card-text">
-                            {% block left_side_bar %}
-                            {% endblock %}
-                        </p>
-                    </div>
+                    <p class="card-text">
+                        {% block left_side_bar %}
+                        {% endblock %}
+                    </p>
+                    <a class="btn btn-secondary btn-sm" href="{% url 'truck_parts_app:truck-create-form' %}"
+                       role="button" style="float: none;">Add truck</a>
                 </div>
+            </div>
 
-
-                <div class="card text col-10">
-                    <div class="card-body">
-                        <h2 class="card-title">{% block header %} Welcome to our website!{% endblock %}</h2>
-                        <p class="card-text">{% block content %}{% endblock %}</p>
-                    </div>
+            <div class="card text col-10">
+                <div class="card-body">
+                    <h2 class="card-title">{% block header %} Welcome to our website!{% endblock %}</h2>
+                    <p class="card-text">{% block content %}{% endblock %}</p>
                 </div>
-
             </div>
         </div>
-
-        <footer>
-            <div class="pt-lg-5">
-                <a href="" type="button" class="btn btn-primary btn-lg btn-block">Contuct us</a>
-            </div>
-        </footer>
-
     </div>
+
+    <footer>
+        <div class="pt-lg-5">
+            <a href="" type="button" class="btn btn-primary btn-lg btn-block">Contuct us</a>
+        </div>
+    </footer>
+
+</div>
 </div>
 </body>
 </html>

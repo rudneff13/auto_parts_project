@@ -4,12 +4,7 @@ from .models import Truck, Product, ProductTruck
 
 
 class ProductTruckSerializer(serializers.ModelSerializer):
-    # truck = serializers.ReadOnlyField(source='truck.name')
-    # name = serializers.CharField(source='truck.name')
     name = serializers.CharField(source='truck.name',)
-    # truck_pk = serializers.ReadOnlyField(source='truck.pk')
-    # product = serializers.ReadOnlyField(source='product.name')
-    # product.pk = serializers.ReadOnlyField(source='product.pk')
 
     class Meta:
         model = ProductTruck
@@ -30,7 +25,6 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('pk', 'name', 'description', 'trucks')
-        # depth = 1
 
     def create(self, validated_data):
         trucks_data = validated_data.pop('producttruck_set')

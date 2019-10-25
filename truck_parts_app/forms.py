@@ -1,22 +1,19 @@
 from django import forms
-from .models import Truck, Product, ProductTruck
+from .models import Truck, Product
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, ButtonHolder, Layout, Fieldset, Button, Div, HTML, Field
-from crispy_forms.bootstrap import FormActions
-
-from django.urls import reverse
-
+from crispy_forms.layout import Submit
 from django.forms import ModelForm
 
 
-#
-# from .models import Product, Truck
+class TruckForm(ModelForm):
+    class Meta:
+        model = Truck
+        fields = ('name',)
 
-
-# class TruckForm(ModelForm):
-#     class Meta:
-#         model = Truck
-#         fields = ('name',)
+    def __init__(self, *args, **kwargs):
+        super(TruckForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Save truck'))
 
 
 class FilterTruckForm(forms.Form):
@@ -30,7 +27,6 @@ class FilterTruckForm(forms.Form):
 
 
 class ProductForm(forms.ModelForm):
-
     class Meta:
         model = Product
         fields = ['name', 'description', 'trucks']
@@ -40,7 +36,3 @@ class ProductForm(forms.ModelForm):
         self.fields['trucks'].widget = forms.widgets.CheckboxSelectMultiple()
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Save product'))
-
-
-# class SearchForm(forms.Form):
-#     keyword = forms.CharField(required=False, max_length=50)

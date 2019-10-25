@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Truck(models.Model):
@@ -33,9 +32,6 @@ class Product(models.Model):
 
     def get_trucks(self):
         return ', '.join([truck.name for truck in self.trucks.all()][:50])
-
-    # def get_absolute_url(self):
-    #     return reverse('product-detail', kwargs={'pk': self.pk})
 
 
 class ProductTruck(models.Model):

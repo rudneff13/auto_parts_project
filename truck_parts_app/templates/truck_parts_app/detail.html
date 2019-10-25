@@ -7,17 +7,10 @@
 {% block header %} {{ product.name }} {% endblock %}
 
 {% block content %}
-    {{ form|crispy }}
-    <p> {{ product.description }}</p>
+{{ form|crispy }}
+<p> {{ product.description }}</p>
     <a class="btn btn-secondary btn-md" href="{% url 'truck_parts_app:product-update-form' product.id %}"
-       role="button" style="float: right;">Update</a>
+       role="button" style="float: start;">Update</a>
     <a class="btn btn-secondary btn-md" href="{% url 'truck_parts_app:product-delete-form' product.id %}"
        role="button" style="float: right;">Delete</a>
 {% endblock %}
-
-{#{% block left_side_bar %}#}
-{#    {% for truck in list_of_trucks %}#}
-{#        <a class="nav-link" href="#">{{ truck.name }}</a>#}
-{#    {% endfor %}#}
-{##}
-{#{% endblock %}#}

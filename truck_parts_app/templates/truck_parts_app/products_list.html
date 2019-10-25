@@ -27,7 +27,7 @@
 
             {% for product in products %}
                 <tr>
-                    <td><a href="{% url 'truck_parts_app:product-detail' product.id %}">{{ product.name }}</a></td>
+                    <td><a href="{% url 'truck_parts_app:product-detail-form' product.id %}">{{ product.name }}</a></td>
                     <td><a>{{ product.description }}</a></td>
                     <td><a>{{ product.get_trucks }}</a></td>
                     <td>
@@ -41,8 +41,6 @@
             </tbody>
         </table>
     </div>
-
-
 {% endblock %}
 
 {% block left_side_bar %}

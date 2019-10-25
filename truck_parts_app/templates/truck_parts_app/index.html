@@ -7,7 +7,7 @@
 
 {% block left_side_bar %}
     {% for truck in list_of_trucks %}
-        <a class="nav-link" href="#">{{ truck.name }}</a>
+        <a class="nav-link" href="{% url 'truck_parts_app:truck-detail-form' truck.id %}">{{ truck.name }}</a>
     {% endfor %}
 
 {% endblock %}

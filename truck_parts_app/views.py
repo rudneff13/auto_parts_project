@@ -1,11 +1,14 @@
 from django.views import generic
-from django.shortcuts import get_object_or_404
 
 from .models import Truck, Product, ProductTruck
-from .forms import ProductForm
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, reverse, redirect
+from .forms import ProductForm, TruckForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, reverse
 from .forms import FilterTruckForm
+
+from .serializers import TruckSerializer, ProductSerializer
+from rest_framework.viewsets import ModelViewSet
+from rest_framework import filters
 
 
 class IndexView(generic.ListView):
@@ -13,42 +16,41 @@ class IndexView(generic.ListView):
     context_object_name = 'list_of_trucks'
     model = Truck
 
-    # search_fields = ('name', 'products__name')
-
-    # def get_queryset(self):
-    #     return Truck.objects.all()
-
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:
             object_list = Truck.objects.filter(name__icontains=query)
-        # elif query:
-        #     object_list = Product.objects.filter(name__icontains=query)
         else:
             object_list = Truck.objects.all()
         return object_list
 
 
-# class TruckCreateView(generic.CreateView):
-#     model = Truck
-#     # fields = ['name']
-#     form_class = TruckForm
-#     template_name = 'truck_parts_app/truck-create-form.html'
-#     success_url = 'products-list'
+class TruckCreateView(generic.CreateView):
+    model = Truck
+    form_class = TruckForm
+    template_name = 'truck_parts_app/truck-create-form.html'
+    success_url = '/'
 
 
-# class ProductsListView(generic.ListView):
-#     template_name = 'truck_parts_app/products_list.html'
-#     search_fields = ('name', 'description', 'trucks__name',)
-#     # context_object_name = 'list_of_products'
-#
-#     def get_queryset(self):
-#         return {'product': Product.objects.all(),
-#                 'truck': Truck.objects.all(),
-#                 }
-#
-#     def get(self, request):
-#         if request.method=='GET'
+class TruckDetailView(generic.DetailView):
+    model = Truck
+    template_name = 'truck_parts_app/truck-detail.html'
+
+
+class TruckUpdateView(generic.UpdateView):
+    model = Truck
+    form_class = TruckForm
+    template_name = 'truck_parts_app/truck-update-form.html'
+
+    def get_success_url(self):
+        return reverse('truck_parts_app:truck-detail-form', args=(self.object.id,))
+
+
+class TruckDeleteView(generic.DeleteView):
+    model = Truck
+    template_name = 'truck_parts_app/truck-confirm-delete.html'
+    form_class = ProductForm
+    success_url = '/'
 
 
 class ProductDetailView(generic.DetailView):
@@ -62,7 +64,7 @@ class ProductUpdateView(generic.UpdateView):
     template_name = 'truck_parts_app/product-update-form.html'
 
     def get_success_url(self):
-        return reverse('truck_parts_app:product-detail', args=(self.object.id,))
+        return reverse('truck_parts_app:product-detail-form', args=(self.object.id,))
 
 
 class ProductDeleteView(generic.DeleteView):
@@ -106,27 +108,10 @@ def create_product(request):
                 if truck in form.cleaned_data['trucks']:
                     new_obj = ProductTruck(product=prod, truck=truck)
                     new_obj.save()
-        return HttpResponseRedirect(reverse('truck_parts_app:product-detail', args=(prod.pk,)))
+        return HttpResponseRedirect(reverse('truck_parts_app:product-detail-form', args=(prod.pk,)))
     else:
         form = ProductForm()
     return render(request, 'truck_parts_app/product-create-form.html', {'form': form})
-
-
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework.schemas import SchemaGenerator
-from rest_framework.views import APIView
-
-
-from .serializers import TruckSerializer, ProductSerializer
-from rest_framework.viewsets import ModelViewSet
-from rest_framework import filters
-
-
-# class DynamicSearchFilter(filters.SearchFilter):
-#     def get_search_fields(self, view, request):
-#         return request.GET.getlist('search_fields', [])
 
 
 class APITruckViewSet(ModelViewSet):
@@ -137,7 +122,6 @@ class APITruckViewSet(ModelViewSet):
 
 
 class APIProductViewSet(ModelViewSet):
-    # filter_backends = (DynamicSearchFilter,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     search_fields = ['name', 'description', 'trucks__name']
